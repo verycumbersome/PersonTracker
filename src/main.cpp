@@ -23,13 +23,19 @@ int main( int argc, const char** argv )
 		Mat cameraResize;
 
 		cap1.read(cameraFrame);
-
 		resize(cameraFrame, cameraResize, Size(), 0.5, 0.5, CV_INTER_AREA);
+
+		Mat original = cameraResize.clone();
+		Mat gray;
+
+		cvtColor(original, gray, CV_BGR2GRAY);
+		vector< Rect_<int> > faces;
 
 		inRange(cameraResize, Scalar(0,50,0), Scalar(200,200,100), output);
 
 		imshow("original", cameraResize);
 		imshow("mask", output);
+		imshow("gray", gray);
 
 		if (waitKey(30) >= 0){
 			break;

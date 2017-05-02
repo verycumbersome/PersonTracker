@@ -21,10 +21,9 @@ static void readCsv(const string& filename, vector<Mat>& images, vector<int>& la
     }
 }
 
-void facialDetection::setVariables(std::string fn_haar, std::string fn_csv, int cam_id) {
+void facialDetection::setVariables(std::string fn_haar, std::string fn_csv) {
 	haarData = fn_haar;
 	csvData = fn_csv;
-	deviceId = cam_id;
 
 
 };
