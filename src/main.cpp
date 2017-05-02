@@ -1,5 +1,9 @@
+#include <opencv/cv.h>
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgproc.hpp>
+
+#include "facialDetection.h"
+
 #include <iostream>
 
 using namespace cv;
