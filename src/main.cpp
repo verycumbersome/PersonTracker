@@ -27,12 +27,14 @@ int main( int argc, const char** argv )
 
 		Mat original = cameraResize.clone();
 		Mat gray;
+		CascadeClassifier face_cascade = CascadeClassifier("/usr/local/Cellar/opencv/2.4.13.2/share/OpenCV/haarcascades/haarcascade_frontalface_default.xml");
 
 		cvtColor(original, gray, CV_BGR2GRAY);
 		vector< Rect_<int> > faces;
 
 		inRange(cameraResize, Scalar(0,50,0), Scalar(200,200,100), output);
 
+		facialDetection::detectFaceInImage(gray, face_cascade);
 		imshow("original", cameraResize);
 		imshow("mask", output);
 		imshow("gray", gray);

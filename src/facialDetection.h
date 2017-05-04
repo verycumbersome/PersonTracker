@@ -3,9 +3,9 @@
 
 #include <opencv2/core.hpp>
 #include <opencv2/contrib/contrib.hpp>
-#include <opencv2/highgui/highgui.hpp>
-#include <opencv2/imgproc/imgproc.hpp>
-#include <opencv2/objdetect/objdetect.hpp>
+#include <opencv2/highgui.hpp>
+#include <opencv2/imgproc.hpp>
+#include <opencv2/objdetect.hpp>
 
 #include <iostream>
 #include <fstream>
@@ -19,6 +19,7 @@ class facialDetection {
 		void setVariables(string fn_haar, string fn_csv);
 		void readCsv(const string& filename, vector<Mat>& images, vector<int>& labels, char separator = ';');
 		void faceTrainer();
+		CvRect detectFaceInImage(IplImage *inputImg, CascadeClassifier* cascade);
 	private:
 		string haarData;
 		string csvData;
