@@ -17,9 +17,11 @@ using namespace cv;
 class facialDetection {
 	public:
 		void setVariables(string fn_haar, string fn_csv);
-		void readCsv(const string& filename, vector<Mat>& images, vector<int>& labels, char separator = ';');
+		static void readCsv(const string& filename, vector<Mat>& images, vector<int>& labels, char separator = ';');
 		void faceTrainer();
 		void detectFace(Mat frame, CascadeClassifier cascade);
+		int faceY;
+		int faceX;
 	private:
 		string haarData;
 		string csvData;

@@ -25,7 +25,7 @@ int main( int argc, const char** argv )
 
 	RNG rng(12345);
 
-	frameCapture = cvCaptureFromCAM( 0 );
+	frameCapture = cvCaptureFromCAM(0);
 
 	while(1){
 		Mat cameraFrame;
@@ -45,7 +45,12 @@ int main( int argc, const char** argv )
 
 		frame = cvQueryFrame(frameCapture);
 
-		faceDetect.detectFace(frame, faceCascade);
+		resize(frame, cameraResize, Size(), 0.5, 0.5, CV_INTER_AREA);
+
+
+		faceDetect.detectFace(cameraResize, faceCascade);
+		cout << faceDetect.faceX << "\n";
+		cout << faceDetect.faceY << "\n";
 //		imshow("original", cameraResize);
 //		imshow("mask", output);
 //		imshow("gray", gray);
