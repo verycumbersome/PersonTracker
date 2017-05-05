@@ -1,5 +1,5 @@
-#ifndef __FACIAL_DETECTION_H_INCLUDED
-#define __FACIAL_DETECTION_H_INCLUDED
+#ifndef FACIAL_DETECTION_INCLUDED
+#define FACIAL_DETECTION_INCLUDED
 
 #include <opencv2/core.hpp>
 #include <opencv2/contrib/contrib.hpp>
@@ -19,11 +19,11 @@ class facialDetection {
 		void setVariables(string fn_haar, string fn_csv);
 		void readCsv(const string& filename, vector<Mat>& images, vector<int>& labels, char separator = ';');
 		void faceTrainer();
-		CvRect detectFaceInImage(IplImage *inputImg, CascadeClassifier* cascade);
+		void detectFace(Mat frame, CascadeClassifier cascade);
 	private:
 		string haarData;
 		string csvData;
 };
 
-#endif
+#endif /* FACIAL_DETECTION_H */
 

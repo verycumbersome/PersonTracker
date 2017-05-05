@@ -45,44 +45,25 @@ void facialDetection::faceTrainer() {
 //	model->train(images, labels);
 };
 
-CvRect detectFaceInImage(IplImage *inputImg, CascadeClassifier* cascade)
-{
-	CvSize minFeatureSize = cvSize(20, 20);
+void facialDetection::detectFace(Mat frame, CascadeClassifier cascade){
+	vector<Rect> faces;
+	Mat frame_gray;
 
-	int flags = CV_HAAR_FIND_BIGGEST_OBJECT | CV_HAAR_DO_ROUGH_SEARCH;
+	cvtColor(frame, frame_gray, CV_BGR2GRAY );
+	equalizeHist(frame_gray, frame_gray);
 
-	float search_scale_factor = 1.1f;
-	IplImage *detectImg;
-	IplImage *greyImg = 0;
-	CvMemStorage* storage;
-	CvRect rc;
-	double t;
-	CvSeq* rects;
-	CvSize size;
-	int i, ms, nFaces;
+	  //-- Detect faces
+	  cascade.detectMultiScale( frame_gray, faces, 1.1, 2, 0|CV_HAAR_SCALE_IMAGE, Size(30, 30) );
 
-	storage = cvCreateMemStorage(0);
-	cvClearMemStorage( storage );
+	  for( size_t i = 0; i < faces.size(); i++ )
+	  {
+	    Point center( faces[i].x + faces[i].width*0.5, faces[i].y + faces[i].height*0.5 );
+	    ellipse( frame, center, Size( faces[i].width*0.5, faces[i].height*0.5), 0, 0, 360, Scalar( 255, 0, 255 ), 4, 8, 0 );
 
-	detectImg = (IplImage*)inputImg;
+	    Mat faceROI = frame_gray( faces[i] );
+	    std::vector<Rect> eyes;
+	  }
 
-	t = (double)cvGetTickCount();
-	rects = CascadeClassifier( detectImg, cascade, storage,
-			search_scale_factor, 3, flags, minFeatureSize);
-	t = (double)cvGetTickCount() - t;
-	ms = cvRound( t / ((double)cvGetTickFrequency() * 1000.0) );
-	nFaces = rects->total;
-	printf("Face Detection took %d ms and found %d objects\n", ms, nFaces);
-
-	if (nFaces > 0)
-		rc = *(CvRect*)cvGetSeqElem( rects, 0 );
-	else
-		rc = cvRect(-1,-1,-1,-1);
-
-	if (greyImg)
-		cvReleaseImage( &greyImg );
-	cvReleaseMemStorage( &storage );
-	//cvReleaseHaarClassifierCascade( &cascade );
-
-	return rc;
+	  imshow("main", frame);
 }
+
