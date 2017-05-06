@@ -49,11 +49,8 @@ int main( int argc, const char** argv )
 
 
 		faceDetect.detectFace(cameraResize, faceCascade);
-		cout << faceDetect.faceX << "\n";
-		cout << faceDetect.faceY << "\n";
-//		imshow("original", cameraResize);
-//		imshow("mask", output);
-//		imshow("gray", gray);
+		cout << faceDetect.faceX << " X\n";
+		cout << faceDetect.faceY << " Y\n";
 
 		if (waitKey(30) >= 0){
 			break;
