@@ -12,7 +12,6 @@ int main( int argc, const char** argv )
 
 	CvCapture* frameCapture;
 	VideoCapture capture(0);
-	Mat output;
 	Mat frame;
 
 	if (!capture.isOpened()){
